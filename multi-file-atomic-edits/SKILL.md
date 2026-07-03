@@ -13,6 +13,8 @@ Iron rule: **search first, edit second.** Prefer `rg` for codebase search. Never
 
 ## Workflow
 
+Do **not** use this skill for a local single-file edit, an isolated behavior change, or a refactor with no shared symbol, schema, config key, serialized field, dependency, or public contract. Use normal scoped editing plus `self-verification-loop` instead.
+
 ### 1. Define the contract change precisely
 
 Write one line: *"`EnrichedAlert.severity: int` becomes `severity: Severity` (enum); all producers and consumers must convert."* If you can't state the change in one line, it's multiple changes — split them and do them serially, each atomically.

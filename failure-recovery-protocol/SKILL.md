@@ -11,6 +11,8 @@ There are two classic failure spirals: the **retry loop** (re-running variations
 
 Iron rule: **never run the same failing command twice without a changed hypothesis.** If nothing changed, the outcome won't either.
 
+Escalation trigger: if the same command, test, build, tool call, or attempted fix fails twice, stop ordinary execution and use this protocol even if the failure looked small at first.
+
 ## The protocol
 
 ### 1. Capture the failure completely

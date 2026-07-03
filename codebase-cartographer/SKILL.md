@@ -13,6 +13,8 @@ Time spent mapping is not overhead. Fifteen minutes of cartography routinely sav
 
 ## Workflow
 
+Do **not** use this skill for a local, single-module change where the affected callers and tests are obvious from the file already open. Use it when the cause or blast radius may be non-local, not merely because a repo is unfamiliar.
+
 ### 1. Recon the territory
 
 Before editing anything:

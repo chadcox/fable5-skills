@@ -13,6 +13,8 @@ Definition: a **checkpoint** = a git commit at a *stable state* + an updated `.c
 
 ## Workflow
 
+Do **not** use this skill merely because a task is gnarly. Use it when the work is expected to run more than ~30 minutes, span multiple sittings, resume prior work, or perform risky sweeping operations. If branch creation or commits require user approval in the current environment, ask before creating them; never run destructive git commands such as `git reset --hard` unless the user explicitly requested that operation.
+
 ### 1. Establish the safety net at task start
 
 ```bash

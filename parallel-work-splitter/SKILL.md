@@ -13,6 +13,8 @@ Rule zero: **parallelize only what is actually independent.** When in doubt, kee
 
 ## Workflow
 
+Do **not** use this skill for work that is likely under an hour serially, or when candidate streams would modify the same files, lockfiles, generated artifacts, schemas, or global config. If the split does not produce disjoint write-sets and independent verification, keep the work serial.
+
 ### 1. Find the seams
 
 From `.codex/PLAN.md` and `.codex/MAP.md`, group subtasks by the files/modules they touch. Candidate streams must satisfy:

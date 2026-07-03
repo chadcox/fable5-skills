@@ -18,7 +18,7 @@ Treat Skills as reusable operating procedures, not optional suggestions. They sh
 
 ### Process Budget
 
-Use `effort-calibration` as the router for coding tasks. Do not let multiple applicable Skills automatically imply maximum ceremony.
+Use `effort-calibration` as the router for coding tasks. Do not let multiple applicable Skills automatically imply maximum ceremony. When skill triggers conflict, `effort-calibration` controls the process budget unless a safety-critical trigger applies, such as cross-file contract work, repeated failures, resumed work, or a user explicitly requested workflow.
 
 - Trivial: no persisted `.codex/PLAN.md`, `.codex/MAP.md`, or `.codex/STATE.md`; execute directly and verify.
 - Standard: use an inline checklist unless the task expands; create persisted artifacts only when they will materially prevent drift.
@@ -36,13 +36,25 @@ For coding tasks, start with `effort-calibration`.
 Always use:
 
 - `self-verification-loop` before reporting completion.
-- `failure-recovery-protocol` after any non-trivial failed command, test, or build.
+- `failure-recovery-protocol` after any non-trivial failed command, test, or build; always use it after the same command or fix attempt fails twice.
 - `multi-file-atomic-edits` before cross-file renames, signatures, schemas, or config key changes.
 
 Use only when warranted:
 
 - `long-horizon-checkpointing` for multi-hour or resumed work.
 - `parallel-work-splitter` only for genuinely independent large workstreams.
+
+### Routing Matrix
+
+| Scenario | Route |
+| --- | --- |
+| Trivial coding task | Classify with `effort-calibration`, execute directly, then use `self-verification-loop`. Do not create persisted artifacts. |
+| Standard task | Use an inline checklist and targeted verification; create persisted artifacts only if the task expands or drift risk becomes real. |
+| Gnarly task | Use `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, `scope-integrity-guard`, and final `self-verification-loop`. |
+| Cross-file contract change | Use `multi-file-atomic-edits` before editing. |
+| Failed command, test, build, or tool call | Use `failure-recovery-protocol` for non-trivial failures; always use it after the same command or fix attempt fails twice. |
+| Resumed, multi-hour, or risky sweeping work | Use `long-horizon-checkpointing`. |
+| Large independent workstreams | Use `parallel-work-splitter` only when write sets are genuinely independent. |
 
 ---
 

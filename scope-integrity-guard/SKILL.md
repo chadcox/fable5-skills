@@ -16,6 +16,8 @@ The defense is mechanical, not motivational: **re-read the original request, out
 
 ## Workflow
 
+Do **not** use this skill for a single-step task with no meaningful phase boundary, no follow-up requirements, and no drift risk. A final `self-verification-loop` requirement check is enough for those cases.
+
 ### 1. Pin the scope at task start
 
 In `.codex/PLAN.md` (see `task-decomposition-planner`), the Requirements section is the scope contract. Include implicit-but-obvious requirements, and mark anything ambiguous. If the user adds requirements mid-session via follow-up messages, **append them to the Requirements list immediately** — scope that lives only in chat scrollback is scope that gets dropped.

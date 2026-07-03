@@ -17,6 +17,8 @@ The plan is not for the user (though they can read it). It is your own working d
 
 Use `effort-calibration` first. If the task is trivial, execute directly. If it is standard, use an inline checklist unless it starts sprawling. Create a persisted plan only when the task is gnarly, long-running, ambiguous, high blast-radius, or likely to survive context compaction. When in doubt about those signals, plan — a small plan is cheaper than losing a complex task.
 
+Do **not** use this skill for bounded 1-2 file work with clear requirements, obvious verification, and low drift risk. In that case, keep the plan inline and let `self-verification-loop` close the task.
+
 ### 2. Write .codex/PLAN.md
 
 Create `.codex/PLAN.md` by default so planning artifacts do not pollute the project root. If the repo already has a local convention for agent artifacts, use that instead. Use this structure:

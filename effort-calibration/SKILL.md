@@ -9,6 +9,8 @@ description: Classify every incoming task as trivial, standard, or gnarly BEFORE
 
 Frontier models expose a reasoning-effort dial; you can approximate one behaviorally. Uncalibrated effort fails in both directions: **over-engineering** (`.codex/PLAN.md`, `.codex/MAP.md`, and 40 minutes of ceremony for a one-line fix — process fatigue that trains everyone to skip process) and **under-thinking** (diving into a subtle concurrency bug with the same energy as a typo fix, then thrashing). Ten seconds of explicit classification up front sets the right posture for everything downstream — and tells the other skills in this suite when to fire.
 
+Routing rule: when multiple skills appear applicable, this skill sets the process budget. Other skill triggers describe relevance, but they do not automatically escalate the task to maximum ceremony unless the trigger is safety-critical: cross-file contract work, repeated failures, resumed work, risky sweeping operations, or a workflow the user explicitly requested.
+
 ## The three tiers
 
 Classify before the first edit. State the tier in one line ("Treating this as standard: 2 files, existing test coverage.") so the user can veto.
@@ -29,7 +31,7 @@ Classify before the first edit. State the tier in one line ("Treating this as st
 
 **Signature:** any of — multi-file/cross-module, ambiguous requirements, unfamiliar codebase, concurrency/security/data-migration territory, long horizon, high blast radius, or "we've tried to fix this before."
 
-**Posture:** full discipline stack — `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, `long-horizon-checkpointing`, full `self-verification-loop` with an adversarial pass, `scope-integrity-guard` at every boundary. Deliberately slow down: read more code than feels necessary before the first edit, and explicitly ask *"what would a senior engineer flag in this approach?"* before committing to a design.
+**Posture:** full discipline stack — `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, full `self-verification-loop` with an adversarial pass, `scope-integrity-guard` at every boundary. Add `long-horizon-checkpointing` only when the work is multi-hour, resumed, spans multiple sittings, or is about to perform a risky sweeping operation. Deliberately slow down: read more code than feels necessary before the first edit, and explicitly ask *"what would a senior engineer flag in this approach?"* before committing to a design.
 
 ## Classification heuristics
 

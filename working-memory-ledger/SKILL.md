@@ -11,6 +11,8 @@ On long tasks, context fills up and gets compacted; details from two hours ago a
 
 The ledger is your durable working memory. **If it isn't in the ledger, assume future-you won't know it.**
 
+Do **not** create a ledger for short tasks that can finish in one sitting, touch only a small known surface, and have no realistic context-compaction or resume risk. Use an inline checklist instead; start the ledger only when the task begins to sprawl.
+
 ## The ledger file
 
 Create `.codex/STATE.md` next to `.codex/PLAN.md` at task start. If the repo already has a local convention for agent artifacts, use that instead. Structure:
