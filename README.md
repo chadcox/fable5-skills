@@ -149,6 +149,8 @@ Some of the general coding-agent guidance in `CLAUDE.md` was adapted from [`mult
 
 ## Notes
 
+Licensed under the MIT License. See [LICENSE](LICENSE).
+
 No formal testing has been completed to prove these skills are effective at changing model behavior or improving outcomes. They are provided as-is, with no guarantee of correctness, fitness for a particular model, or suitability for any workflow. Your mileage may vary.
 
 These skills are operating procedures, not code libraries. They work best when the host agent is explicitly instructed to treat skills as mandatory workflows where applicable, not optional advice.
