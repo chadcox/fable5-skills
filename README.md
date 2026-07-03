@@ -20,7 +20,7 @@ Each top-level skill directory is a standalone skill:
 | `working-memory-ledger` | Maintains a durable state ledger and checkpoint guidance during long sessions so decisions, gotchas, and progress survive context loss. |
 | `multi-file-atomic-edits` | Handles cross-file contract changes, renames, schemas, and config edits as one coherent batch. |
 
-The repository also includes `CLAUDE.md`, a sample global instruction file that shows how to route these skills for Claude across projects.
+The repository also includes `AGENT_GUIDE.md`, a host-neutral sample global instruction file that shows how to route these skills across projects.
 
 ## Install
 
@@ -55,27 +55,27 @@ cp -R effort-calibration self-verification-loop failure-recovery-protocol \
 
 ## Install The Routing Guidance
 
-The included `CLAUDE.md` is a sample global routing file. It is written for Claude Code, but the routing rules are portable to other global instruction files such as `AGENTS.md`.
+The included `AGENT_GUIDE.md` is a sample global routing file. Copy or merge its contents into the global instruction file for your agent host, such as `~/.claude/CLAUDE.md` for Claude Code or a global `AGENTS.md` for Codex-style agents.
 
-If you do not already have a global Claude Code instruction file, install it directly:
+For Claude Code, if you do not already have a global instruction file, install it directly:
 
 ```bash
 mkdir -p ~/.claude
-cp CLAUDE.md ~/.claude/CLAUDE.md
+cp AGENT_GUIDE.md ~/.claude/CLAUDE.md
 ```
 
 If you already have `~/.claude/CLAUDE.md`, avoid overwriting it. Copy this repo's sample beside it and import it from your existing global file:
 
 ```bash
 mkdir -p ~/.claude
-cp CLAUDE.md ~/.claude/fable5-skills-CLAUDE.md
-grep -qxF '@~/.claude/fable5-skills-CLAUDE.md' ~/.claude/CLAUDE.md 2>/dev/null || \
-  printf '\n@~/.claude/fable5-skills-CLAUDE.md\n' >> ~/.claude/CLAUDE.md
+cp AGENT_GUIDE.md ~/.claude/fable5-skills-AGENT_GUIDE.md
+grep -qxF '@~/.claude/fable5-skills-AGENT_GUIDE.md' ~/.claude/CLAUDE.md 2>/dev/null || \
+  printf '\n@~/.claude/fable5-skills-AGENT_GUIDE.md\n' >> ~/.claude/CLAUDE.md
 ```
 
 After installing in Claude Code, start Claude with `claude`. The skills should be available by name, such as `/effort-calibration`, and the global `CLAUDE.md` guidance should load at the start of each session.
 
-For other coding-agent hosts, copy the same routing sections into that host's global instruction file and install the skill directories wherever that host expects reusable skills.
+For Codex-style agents, merge the same guidance into the relevant global `AGENTS.md` file and install the skill directories wherever that host expects reusable skills. For other coding-agent hosts, copy the same routing sections into that host's global instruction file.
 
 ## Recommended Routing
 
@@ -106,9 +106,9 @@ Use only when warranted:
 
 - `working-memory-ledger` checkpoint guidance for multi-hour, resumed, or risky sweeping work.
 
-## Using `CLAUDE.md`
+## Using `AGENT_GUIDE.md`
 
-`CLAUDE.md` is a sample global Claude instruction file. It tells an agent to:
+`AGENT_GUIDE.md` is a sample global instruction file. It tells an agent to:
 
 - Prefer available skills before inventing a workflow.
 - Keep trivial tasks lightweight.
@@ -116,7 +116,7 @@ Use only when warranted:
 - Make surgical changes.
 - Verify work before declaring success.
 
-You can merge the relevant sections into your global `CLAUDE.md`, or adapt them for another global agent instruction file such as `AGENTS.md`.
+You can merge the relevant sections into Claude Code's global `CLAUDE.md`, a Codex-style global `AGENTS.md`, or another host-specific global instruction file.
 
 ## Artifact Paths
 
@@ -132,7 +132,7 @@ The included skills use `<agent-artifacts>/` as a placeholder, not a literal req
 
 ```text
 .
-├── CLAUDE.md
+├── AGENT_GUIDE.md
 ├── README.md
 ├── codebase-cartographer/
 ├── effort-calibration/
@@ -145,7 +145,7 @@ The included skills use `<agent-artifacts>/` as a placeholder, not a literal req
 
 ## Attribution
 
-Some of the general coding-agent guidance in `CLAUDE.md` was adapted from [`multica-ai/andrej-karpathy-skills`](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md).
+Some of the general coding-agent guidance in `AGENT_GUIDE.md` was adapted from [`multica-ai/andrej-karpathy-skills`](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md).
 
 ## Notes
 
