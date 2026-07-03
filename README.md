@@ -147,11 +147,18 @@ The included skills use `<agent-artifacts>/` as a placeholder, not a literal req
 
 Some of the general coding-agent guidance in `AGENT_GUIDE.md` was adapted from [`multica-ai/andrej-karpathy-skills`](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md).
 
+## Testing
+
+Four small pilot evals have been run against Claude Code and Codex, comparing a baseline agent (no skills) against a treatment agent (this repo's skills plus the `AGENT_GUIDE.md` routing installed as `CLAUDE.md`). Full methodology, transcripts, and scoring are in `agent-artifacts/EVAL_RESULTS*.md`.
+
+- On easy tasks (a typo fix, a one-line bug with a passing test, an environment-driven test failure, a two-file rename), baseline and treatment were indistinguishable across three model tiers (GPT-5.5 high, Sonnet 5, Haiku 4.5): 4/4 success in every condition, with treatment costing 25-60% more tokens depending on model tier and no correctness gain. See `EVAL_RESULTS.md`, `EVAL_RESULTS_CLAUDE.md`, `EVAL_RESULTS_HAIKU.md`.
+- On harder adversarial fixtures built with a specific trap per skill (a spec requirement the visible test doesn't check, a misleading error message, a hidden untested consumer, a root-cause-vs-symptom bug, a dirty worktree, an ambiguous prompt), Sonnet 5's baseline still avoided every trap unaided (0/6 differential). Haiku 4.5's baseline fell into 2 of 6: it shipped a rename that silently broke an untested consumer script, and it invented an unrequested config value instead of asking. Treatment caught both. See `EVAL_RESULTS_ADVERSARIAL.md`.
+
+Bottom line: these are pilot-scale results (single run per condition per task), not a validated benchmark. The one consistent finding so far is that the skills only changed an outcome when a weaker model (Haiku-tier) faced a task with a real trap in it — on easy tasks or with a stronger baseline model, the skills added token/cost overhead without measurable benefit. Don't treat either direction as proven; see the eval files for what would be needed to say more (repetition, more adversarial tasks, additional model tiers).
+
 ## Notes
 
 Licensed under the MIT License. See [LICENSE](LICENSE).
-
-No formal testing has been completed to prove these skills are effective at changing model behavior or improving outcomes. They are provided as-is, with no guarantee of correctness, fitness for a particular model, or suitability for any workflow. Your mileage may vary.
 
 These skills are operating procedures, not code libraries. They work best when the host agent is explicitly instructed to treat skills as mandatory workflows where applicable, not optional advice.
 

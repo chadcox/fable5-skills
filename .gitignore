@@ -21,6 +21,11 @@ temp/
 
 # Local agent instructions
 AGENTS.md
+CLAUDE.md
+
+# Local agent working state
+agent-artifacts/
+.serena/
 
 # Python cache
 __pycache__/
