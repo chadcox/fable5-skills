@@ -19,6 +19,9 @@ temp/
 .env
 .env.*
 
+# Local agent instructions
+AGENTS.md
+
 # Python cache
 __pycache__/
 *.py[cod]
