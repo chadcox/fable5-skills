@@ -143,6 +143,10 @@ The included skills use `<agent-artifacts>/` as a placeholder, not a literal req
 └── working-memory-ledger/
 ```
 
+## Attribution
+
+Some of the general coding-agent guidance in `CLAUDE.md` was adapted from [`multica-ai/andrej-karpathy-skills`](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md).
+
 ## Notes
 
 No formal testing has been completed to prove these skills are effective at changing model behavior or improving outcomes. They are provided as-is, with no guarantee of correctness, fitness for a particular model, or suitability for any workflow. Your mileage may vary.
