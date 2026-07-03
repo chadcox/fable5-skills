@@ -4,22 +4,21 @@ Behavioral skills authored with the Fable5 model to help coding agents behave wi
 
 The skills are model-agnostic Markdown workflows. They are intended for any coding agent that can discover and follow `SKILL.md` files.
 
+The default set is curated for usefulness, not for a fixed count. Earlier versions used ten skills as an arbitrary starting point; related long-task workflows have since been merged so the core install stays lean.
+
 ## What Is Included
 
-Each directory is a standalone skill:
+Each top-level skill directory is a standalone skill:
 
 | Skill | Purpose |
 | --- | --- |
 | `effort-calibration` | Routes coding tasks into trivial, standard, or gnarly effort levels so the agent uses the right amount of process. |
 | `self-verification-loop` | Requires concrete verification before reporting that work is complete. |
 | `failure-recovery-protocol` | Turns failed commands, tests, and builds into hypothesis-driven debugging instead of blind retries. |
-| `task-decomposition-planner` | Creates a short persisted plan for gnarly or drift-prone tasks. |
+| `task-decomposition-planner` | Creates a short persisted plan for gnarly or drift-prone tasks and preserves scope at phase boundaries. |
 | `codebase-cartographer` | Builds a written map of relevant architecture before broad refactors or non-local debugging. |
-| `working-memory-ledger` | Maintains a durable state ledger during long sessions so decisions, gotchas, and progress survive context loss. |
-| `scope-integrity-guard` | Re-checks the original request at phase boundaries to avoid scope creep or dropped requirements. |
+| `working-memory-ledger` | Maintains a durable state ledger and checkpoint guidance during long sessions so decisions, gotchas, and progress survive context loss. |
 | `multi-file-atomic-edits` | Handles cross-file contract changes, renames, schemas, and config edits as one coherent batch. |
-| `long-horizon-checkpointing` | Uses git checkpoints and state files to make long coding sessions resumable. |
-| `parallel-work-splitter` | Splits large jobs into independent workstreams with explicit write sets and contracts. |
 
 The repository also includes `CLAUDE.md`, a sample global instruction file that shows how to route these skills for Claude across projects.
 
@@ -40,8 +39,7 @@ For Codex-style local skills:
 mkdir -p ~/.codex/skills
 cp -R effort-calibration self-verification-loop failure-recovery-protocol \
   task-decomposition-planner codebase-cartographer working-memory-ledger \
-  scope-integrity-guard multi-file-atomic-edits long-horizon-checkpointing \
-  parallel-work-splitter ~/.codex/skills/
+  multi-file-atomic-edits ~/.codex/skills/
 ```
 
 For Claude Code personal skills:
@@ -52,8 +50,7 @@ Claude Code personal skills live in `~/.claude/skills/<skill-name>/SKILL.md`, wh
 mkdir -p ~/.claude/skills
 cp -R effort-calibration self-verification-loop failure-recovery-protocol \
   task-decomposition-planner codebase-cartographer working-memory-ledger \
-  scope-integrity-guard multi-file-atomic-edits long-horizon-checkpointing \
-  parallel-work-splitter ~/.claude/skills/
+  multi-file-atomic-edits ~/.claude/skills/
 ```
 
 ## Install The Routing Guidance
@@ -86,7 +83,7 @@ Use `effort-calibration` as the first stop for coding work. It decides how much 
 
 - Trivial: execute directly, then run `self-verification-loop`.
 - Standard: use a lightweight checklist, then run `self-verification-loop`.
-- Gnarly: use the heavier stack: `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, `scope-integrity-guard`, and final verification.
+- Gnarly: use the heavier stack: `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, and final verification.
 
 When multiple skills appear applicable, `effort-calibration` is the routing authority for process budget. Individual skill triggers describe when a workflow is relevant; they do not override the calibrated tier unless the task is a safety-critical trigger such as cross-file contract work, repeated failures, resumed work, or a user explicitly requests that workflow.
 
@@ -94,11 +91,10 @@ When multiple skills appear applicable, `effort-calibration` is the routing auth
 | --- | --- |
 | Trivial coding task | Classify with `effort-calibration`, execute directly, then use `self-verification-loop`. Do not create durable artifacts. |
 | Standard task | Use an inline checklist and targeted verification; create durable artifacts only if the task expands or drift risk becomes real. |
-| Gnarly task | Use `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, `scope-integrity-guard`, and final `self-verification-loop`. |
+| Gnarly task | Use `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, and final `self-verification-loop`. |
 | Cross-file contract change | Use `multi-file-atomic-edits` before editing. |
 | Failed command, test, build, or tool call | Use `failure-recovery-protocol` for non-trivial failures; always use it after the same command or fix attempt fails twice. |
-| Resumed, multi-hour, or risky sweeping work | Use `long-horizon-checkpointing`. |
-| Large independent workstreams | Use `parallel-work-splitter` only when write sets are genuinely independent. |
+| Resumed, multi-hour, or risky sweeping work | Use `working-memory-ledger` checkpoint guidance. |
 
 Always use:
 
@@ -108,8 +104,7 @@ Always use:
 
 Use only when warranted:
 
-- `long-horizon-checkpointing` for multi-hour or resumed work.
-- `parallel-work-splitter` for genuinely independent large workstreams.
+- `working-memory-ledger` checkpoint guidance for multi-hour, resumed, or risky sweeping work.
 
 ## Using `CLAUDE.md`
 
@@ -130,9 +125,8 @@ The workflows use durable agent artifacts when written state materially reduces 
 - `<agent-artifacts>/PLAN.md` for task plans.
 - `<agent-artifacts>/MAP.md` for architecture maps.
 - `<agent-artifacts>/STATE.md` for working memory.
-- `<agent-artifacts>/CONTRACTS.md` for frozen parallel-work contracts.
 
-The included skills use `.codex/` as their default artifact directory because it keeps working notes out of the project root in Codex-style setups. That path is a convention, not a requirement. Claude, Codex, and other hosts can map `<agent-artifacts>` to `.claude/`, `.codex/`, `.agents/`, or a project-local convention.
+The included skills use `<agent-artifacts>/` as a placeholder, not a literal required directory. Hosts can map it to `.claude/`, `.codex/`, `.agents/`, or any project-local convention that keeps durable agent notes separate from source files.
 
 ## Repository Layout
 
@@ -143,10 +137,7 @@ The included skills use `.codex/` as their default artifact directory because it
 ├── codebase-cartographer/
 ├── effort-calibration/
 ├── failure-recovery-protocol/
-├── long-horizon-checkpointing/
 ├── multi-file-atomic-edits/
-├── parallel-work-splitter/
-├── scope-integrity-guard/
 ├── self-verification-loop/
 ├── task-decomposition-planner/
 └── working-memory-ledger/

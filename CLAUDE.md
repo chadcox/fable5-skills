@@ -20,9 +20,9 @@ Treat Skills as reusable operating procedures, not optional suggestions. They sh
 
 Use `effort-calibration` as the router for coding tasks. Do not let multiple applicable Skills automatically imply maximum ceremony. When skill triggers conflict, `effort-calibration` controls the process budget unless a safety-critical trigger applies, such as cross-file contract work, repeated failures, resumed work, or a user explicitly requested workflow.
 
-- Trivial: no persisted `.codex/PLAN.md`, `.codex/MAP.md`, or `.codex/STATE.md`; execute directly and verify.
+- Trivial: no persisted `<agent-artifacts>/PLAN.md`, `<agent-artifacts>/MAP.md`, or `<agent-artifacts>/STATE.md`; execute directly and verify.
 - Standard: use an inline checklist unless the task expands; create persisted artifacts only when they will materially prevent drift.
-- Gnarly: use persisted `.codex/PLAN.md`, `.codex/MAP.md`, and `.codex/STATE.md` as appropriate.
+- Gnarly: use persisted `<agent-artifacts>/PLAN.md`, `<agent-artifacts>/MAP.md`, and `<agent-artifacts>/STATE.md` as appropriate.
 - Recalibrate upward or downward when evidence changes.
 
 ### Skill Routing
@@ -31,7 +31,7 @@ For coding tasks, start with `effort-calibration`.
 
 - Trivial: execute directly, then use `self-verification-loop`.
 - Standard: use a lightweight checklist, then `self-verification-loop`.
-- Gnarly: use `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, and `scope-integrity-guard`.
+- Gnarly: use `task-decomposition-planner`, `codebase-cartographer`, and `working-memory-ledger`.
 
 Always use:
 
@@ -41,8 +41,7 @@ Always use:
 
 Use only when warranted:
 
-- `long-horizon-checkpointing` for multi-hour or resumed work.
-- `parallel-work-splitter` only for genuinely independent large workstreams.
+- `working-memory-ledger` checkpoint guidance for multi-hour, resumed, or risky sweeping work.
 
 ### Routing Matrix
 
@@ -50,11 +49,10 @@ Use only when warranted:
 | --- | --- |
 | Trivial coding task | Classify with `effort-calibration`, execute directly, then use `self-verification-loop`. Do not create persisted artifacts. |
 | Standard task | Use an inline checklist and targeted verification; create persisted artifacts only if the task expands or drift risk becomes real. |
-| Gnarly task | Use `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, `scope-integrity-guard`, and final `self-verification-loop`. |
+| Gnarly task | Use `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, and final `self-verification-loop`. |
 | Cross-file contract change | Use `multi-file-atomic-edits` before editing. |
 | Failed command, test, build, or tool call | Use `failure-recovery-protocol` for non-trivial failures; always use it after the same command or fix attempt fails twice. |
-| Resumed, multi-hour, or risky sweeping work | Use `long-horizon-checkpointing`. |
-| Large independent workstreams | Use `parallel-work-splitter` only when write sets are genuinely independent. |
+| Resumed, multi-hour, or risky sweeping work | Use `working-memory-ledger` checkpoint guidance. |
 
 ---
 
@@ -124,7 +122,7 @@ For multi-step work, briefly state the plan:
 2. Step → verification
 3. Step → verification
 
-For persisted planning artifacts, keep them short and current under `.codex/` by default. Do not create `.codex/PLAN.md`, `.codex/MAP.md`, or `.codex/STATE.md` for work that does not need durable state. When they are created, update them as the task changes rather than letting stale plans guide execution.
+For persisted planning artifacts, keep them short and current under `<agent-artifacts>/` by default. Do not create `<agent-artifacts>/PLAN.md`, `<agent-artifacts>/MAP.md`, or `<agent-artifacts>/STATE.md` for work that does not need durable state. When they are created, update them as the task changes rather than letting stale plans guide execution.
 
 Continue working until the success criteria are met or you encounter a genuine blocker.
 

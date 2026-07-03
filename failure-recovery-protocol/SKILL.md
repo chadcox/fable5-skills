@@ -17,7 +17,7 @@ Escalation trigger: if the same command, test, build, tool call, or attempted fi
 
 ### 1. Capture the failure completely
 
-Read the **entire** error output — full stack trace, stderr, exit code — not just the last line. Copy the decisive lines into `.codex/STATE.md` (see `working-memory-ledger`) under Gotchas if this looks non-trivial. Half the time, the real error is 30 lines above the one that caught your eye.
+Read the **entire** error output — full stack trace, stderr, exit code — not just the last line. Copy the decisive lines into `<agent-artifacts>/STATE.md` (see `working-memory-ledger`) under Gotchas if this looks non-trivial. Half the time, the real error is 30 lines above the one that caught your eye.
 
 ### 2. Classify
 
@@ -33,7 +33,7 @@ The "pre-existing" check matters: before assuming you broke it, confirm it worke
 
 ### 3. Hypothesize, then test the hypothesis
 
-State (to yourself, in one sentence, ideally in `.codex/STATE.md`): *"I believe X failed because Y; if I'm right, then Z should be observable."*
+State (to yourself, in one sentence, ideally in `<agent-artifacts>/STATE.md`): *"I believe X failed because Y; if I'm right, then Z should be observable."*
 
 Then **test Z — the cheapest observable prediction — not the full fix.** Examples:
 
@@ -45,7 +45,7 @@ If the observation contradicts the hypothesis, form a new one. Do **not** apply 
 
 ### 4. Fix minimally, verify, record
 
-Apply the smallest change that addresses the *confirmed* cause. Re-run the original failing command. On success, run `self-verification-loop` on the fix, and record the gotcha in `.codex/STATE.md` so it's never re-derived.
+Apply the smallest change that addresses the *confirmed* cause. Re-run the original failing command. On success, run `self-verification-loop` on the fix, and record the gotcha in `<agent-artifacts>/STATE.md` so it's never re-derived.
 
 ### 5. Escalation budget
 

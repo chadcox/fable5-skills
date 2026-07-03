@@ -7,7 +7,7 @@ description: Classify every incoming task as trivial, standard, or gnarly BEFORE
 
 ## Why this exists
 
-Frontier models expose a reasoning-effort dial; you can approximate one behaviorally. Uncalibrated effort fails in both directions: **over-engineering** (`.codex/PLAN.md`, `.codex/MAP.md`, and 40 minutes of ceremony for a one-line fix — process fatigue that trains everyone to skip process) and **under-thinking** (diving into a subtle concurrency bug with the same energy as a typo fix, then thrashing). Ten seconds of explicit classification up front sets the right posture for everything downstream — and tells the other skills in this suite when to fire.
+Frontier models expose a reasoning-effort dial; you can approximate one behaviorally. Uncalibrated effort fails in both directions: **over-engineering** (`<agent-artifacts>/PLAN.md`, `<agent-artifacts>/MAP.md`, and 40 minutes of ceremony for a one-line fix — process fatigue that trains everyone to skip process) and **under-thinking** (diving into a subtle concurrency bug with the same energy as a typo fix, then thrashing). Ten seconds of explicit classification up front sets the right posture for everything downstream — and tells the other skills in this suite when to fire.
 
 Routing rule: when multiple skills appear applicable, this skill sets the process budget. Other skill triggers describe relevance, but they do not automatically escalate the task to maximum ceremony unless the trigger is safety-critical: cross-file contract work, repeated failures, resumed work, risky sweeping operations, or a workflow the user explicitly requested.
 
@@ -19,19 +19,19 @@ Classify before the first edit. State the tier in one line ("Treating this as st
 
 **Signature:** single file, single obvious change, no ambiguity, blast radius ≈ zero. Typo fixes, a log line, bumping a timeout, an isolated one-liner.
 
-**Posture:** just do it. No `.codex/PLAN.md`, no `.codex/MAP.md`. Still non-negotiable: run/compile the change and re-read the diff (a 30-second `self-verification-loop`). Trivial does not mean unverified.
+**Posture:** just do it. No `<agent-artifacts>/PLAN.md`, no `<agent-artifacts>/MAP.md`. Still non-negotiable: run/compile the change and re-read the diff (a 30-second `self-verification-loop`). Trivial does not mean unverified.
 
 ### Tier 2 — Standard
 
 **Signature:** 1–3 files, clear requirements, known territory, moderate blast radius. Typical bug fixes, small features, adding a test, extending an existing pattern.
 
-**Posture:** lightweight plan (a 5-line checklist is fine — inline, not necessarily a file), targeted verification (relevant tests + diff review), `.codex/STATE.md` only if the task starts sprawling.
+**Posture:** lightweight plan (a 5-line checklist is fine — inline, not necessarily a file), targeted verification (relevant tests + diff review), `<agent-artifacts>/STATE.md` only if the task starts sprawling.
 
 ### Tier 3 — Gnarly
 
 **Signature:** any of — multi-file/cross-module, ambiguous requirements, unfamiliar codebase, concurrency/security/data-migration territory, long horizon, high blast radius, or "we've tried to fix this before."
 
-**Posture:** full discipline stack — `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, full `self-verification-loop` with an adversarial pass, `scope-integrity-guard` at every boundary. Add `long-horizon-checkpointing` only when the work is multi-hour, resumed, spans multiple sittings, or is about to perform a risky sweeping operation. Deliberately slow down: read more code than feels necessary before the first edit, and explicitly ask *"what would a senior engineer flag in this approach?"* before committing to a design.
+**Posture:** full discipline stack — `task-decomposition-planner`, `codebase-cartographer`, `working-memory-ledger`, and full `self-verification-loop` with an adversarial pass. Use the planner's boundary checks to preserve scope, and use the ledger's checkpoint guidance when the work is multi-hour, resumed, spans multiple sittings, or is about to perform a risky sweeping operation. Deliberately slow down: read more code than feels necessary before the first edit, and explicitly ask *"what would a senior engineer flag in this approach?"* before committing to a design.
 
 ## Classification heuristics
 

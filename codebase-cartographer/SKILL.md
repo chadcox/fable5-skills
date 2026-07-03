@@ -32,9 +32,9 @@ cat README* CONTRIBUTING* .editorconfig 2>/dev/null
 
 Read the code that matters: the modules you'll touch, plus **one level up (their callers) and one level down (their dependencies)**. Skim, don't memorize — the map holds the details.
 
-### 2. Write .codex/MAP.md
+### 2. Write `<agent-artifacts>/MAP.md`
 
-Persist the map (context compaction erases un-written maps). Use `.codex/MAP.md` by default so agent artifacts stay out of the project root; if the repo already has a local convention for agent artifacts, use that instead.
+Persist the map (context compaction erases un-written maps). Use `<agent-artifacts>/MAP.md` by default so agent artifacts stay out of the project root; if the repo already has a local convention for agent artifacts, use that instead.
 
 ```markdown
 # MAP — <repo/task>

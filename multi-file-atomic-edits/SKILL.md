@@ -27,7 +27,7 @@ rg -n "EnrichedAlert\(" src/ tests/ -g "*.py" # constructors
 rg -n "severity" config/ docs/ *.md           # configs & docs too
 ```
 
-Also hunt non-obvious consumers: string-based access (`getattr`, `dict["severity"]`, serialized JSON, DB columns, API schemas, log parsers, dashboards, .yaml/.toml keys, PowerShell splats). Cross-check with `.codex/MAP.md` if `codebase-cartographer` ran. Record the complete site list (file:line) in `.codex/STATE.md` or a scratch checklist. **This list is the definition of done.**
+Also hunt non-obvious consumers: string-based access (`getattr`, `dict["severity"]`, serialized JSON, DB columns, API schemas, log parsers, dashboards, .yaml/.toml keys, PowerShell splats). Cross-check with `<agent-artifacts>/MAP.md` if `codebase-cartographer` ran. Record the complete site list (file:line) in `<agent-artifacts>/STATE.md` or a scratch checklist. **This list is the definition of done.**
 
 ### 3. Order the batch for continuous compilability where possible
 
@@ -37,7 +37,7 @@ For large/risky batches, consider the two-phase (expand/contract) pattern: add t
 
 ### 4. Execute as a single batch
 
-- Checkpoint first (`long-horizon-checkpointing` pre-risk commit).
+- Checkpoint first using `working-memory-ledger` guidance when the batch is large or risky.
 - Work straight through the checklist, ticking each site. **Do not interleave unrelated work** mid-batch — a half-done atomic edit plus a detour equals a lost thread.
 - For mechanical renames, prefer tooling (`rg -l "old" | xargs sed -i`, IDE rename, codemod) over 40 hand-edits — but *always* review the resulting diff hunk-by-hunk; mechanical tools rename the substring in comments, strings, and unrelated symbols with enthusiasm.
 
@@ -54,7 +54,7 @@ The zero-match search is non-negotiable — it catches the site the enumeration 
 
 ### 6. If interrupted mid-batch
 
-A half-done batch is the worst state to abandon. Either finish the batch or revert to the pre-risk checkpoint — never leave it half-migrated. If you truly must stop, record the checklist with tick-state in `.codex/STATE.md`. Use `git stash` only after confirming it will not hide unrelated user changes.
+A half-done batch is the worst state to abandon. Either finish the batch or revert to the pre-risk checkpoint — never leave it half-migrated. If you truly must stop, record the checklist with tick-state in `<agent-artifacts>/STATE.md`. Use `git stash` only after confirming it will not hide unrelated user changes.
 
 ## Anti-patterns
 
