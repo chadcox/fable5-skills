@@ -25,7 +25,7 @@ rg -n "EnrichedAlert\(" src/ tests/ -g "*.py" # constructors
 rg -n "severity" config/ docs/ *.md           # configs & docs too
 ```
 
-Also hunt non-obvious consumers: string-based access (`getattr`, `dict["severity"]`, serialized JSON, DB columns, API schemas, log parsers, dashboards, .yaml/.toml keys, PowerShell splats). Cross-check with MAP.md if `codebase-cartographer` ran. Record the complete site list (file:line) in STATE.md or a scratch checklist. **This list is the definition of done.**
+Also hunt non-obvious consumers: string-based access (`getattr`, `dict["severity"]`, serialized JSON, DB columns, API schemas, log parsers, dashboards, .yaml/.toml keys, PowerShell splats). Cross-check with `.codex/MAP.md` if `codebase-cartographer` ran. Record the complete site list (file:line) in `.codex/STATE.md` or a scratch checklist. **This list is the definition of done.**
 
 ### 3. Order the batch for continuous compilability where possible
 
@@ -52,7 +52,7 @@ The zero-match search is non-negotiable — it catches the site the enumeration 
 
 ### 6. If interrupted mid-batch
 
-A half-done batch is the worst state to abandon. Either finish the batch or revert to the pre-risk checkpoint — never leave it half-migrated. If you truly must stop, record the checklist with tick-state in STATE.md and stash with a message.
+A half-done batch is the worst state to abandon. Either finish the batch or revert to the pre-risk checkpoint — never leave it half-migrated. If you truly must stop, record the checklist with tick-state in `.codex/STATE.md`. Use `git stash` only after confirming it will not hide unrelated user changes.
 
 ## Anti-patterns
 

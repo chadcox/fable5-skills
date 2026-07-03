@@ -13,9 +13,9 @@ Each directory is a standalone skill:
 | `effort-calibration` | Routes coding tasks into trivial, standard, or gnarly effort levels so the agent uses the right amount of process. |
 | `self-verification-loop` | Requires concrete verification before reporting that work is complete. |
 | `failure-recovery-protocol` | Turns failed commands, tests, and builds into hypothesis-driven debugging instead of blind retries. |
-| `task-decomposition-planner` | Creates a short persisted plan for non-trivial tasks to prevent requirement drift. |
+| `task-decomposition-planner` | Creates a short persisted plan for gnarly or drift-prone tasks. |
 | `codebase-cartographer` | Builds a written map of relevant architecture before broad refactors or non-local debugging. |
-| `working-memory-ledger` | Maintains `STATE.md` during long sessions so decisions, gotchas, and progress survive context loss. |
+| `working-memory-ledger` | Maintains `.codex/STATE.md` during long sessions so decisions, gotchas, and progress survive context loss. |
 | `scope-integrity-guard` | Re-checks the original request at phase boundaries to avoid scope creep or dropped requirements. |
 | `multi-file-atomic-edits` | Handles cross-file contract changes, renames, schemas, and config edits as one coherent batch. |
 | `long-horizon-checkpointing` | Uses git checkpoints and state files to make long coding sessions resumable. |
@@ -130,3 +130,5 @@ No formal testing has been completed to prove these skills are effective at chan
 These skills are operating procedures, not code libraries. They work best when the host agent is explicitly instructed to treat skills as mandatory workflows where applicable, not optional advice.
 
 The included guidance intentionally favors correctness, verification, and scope control over raw speed. For very small tasks, `effort-calibration` keeps the process from becoming heavier than the work.
+
+When durable agent artifacts are needed, the skills default to `.codex/PLAN.md`, `.codex/MAP.md`, `.codex/STATE.md`, and `.codex/CONTRACTS.md` so working notes do not clutter the project root. If a project already has its own artifact convention, use that instead.

@@ -15,7 +15,7 @@ Rule zero: **parallelize only what is actually independent.** When in doubt, kee
 
 ### 1. Find the seams
 
-From PLAN.md and MAP.md, group subtasks by the files/modules they touch. Candidate streams must satisfy:
+From `.codex/PLAN.md` and `.codex/MAP.md`, group subtasks by the files/modules they touch. Candidate streams must satisfy:
 
 - **Disjoint write-sets.** No two streams modify the same file. (Shared *reads* are fine.)
 - **No hidden coupling** through generated code, schemas, lockfiles, or global config — the classic collision points. Lockfile-touching work (dependency changes) goes in exactly one stream, or serial.
@@ -25,7 +25,7 @@ If two subtasks share a contract that isn't finished yet, they are one stream, o
 
 ### 2. Freeze the interface contracts FIRST
 
-Anything two streams both depend on gets defined **before** the split, in a contracts step done serially: shared dataclasses/types, API schemas, function signatures, event formats, config keys. Write them down in `CONTRACTS.md` (or commit stub interfaces directly). During parallel execution, **contracts are frozen** — a stream that needs a contract change stops and escalates rather than unilaterally editing shared surface.
+Anything two streams both depend on gets defined **before** the split, in a contracts step done serially: shared dataclasses/types, API schemas, function signatures, event formats, config keys. Write them down in `.codex/CONTRACTS.md` by default (or commit stub interfaces directly). During parallel execution, **contracts are frozen** — a stream that needs a contract change stops and escalates rather than unilaterally editing shared surface.
 
 ### 3. Write the work orders
 
@@ -35,8 +35,8 @@ Each stream gets a self-contained brief — assume the executing session has *ze
 # Stream B — Notification consumers
 - Branch: task/notify-consumers   Base: task/contracts (commit abc123)
 - Scope (write-set): src/notify/**, tests/notify/** ONLY. Do not touch src/models.py.
-- Contract: consume EnrichedAlert v2 as defined in CONTRACTS.md — treat as frozen.
-- Requirements: R2, R4 from PLAN.md (restated here in full: ...)
+- Contract: consume EnrichedAlert v2 as defined in .codex/CONTRACTS.md — treat as frozen.
+- Requirements: R2, R4 from .codex/PLAN.md (restated here in full: ...)
 - Definition of done: tests/notify green; zero-match `rg` search for legacy field names in scope.
 - Escalate (stop, don't improvise) if: the contract is insufficient, or you need to write outside scope.
 ```
@@ -47,7 +47,7 @@ Each stream runs its own internal discipline (`self-verification-loop`, `working
 
 - One git branch per stream, all cut from the same contracts commit.
 - In Claude Code: parallel sessions (or git worktrees) per branch, one work order each; or subagents where available.
-- The orchestrating session does not write code during the parallel phase — it monitors, answers escalations, and owns contract-change decisions (a contract change means pausing affected streams, updating CONTRACTS.md, rebasing).
+- The orchestrating session does not write code during the parallel phase — it monitors, answers escalations, and owns contract-change decisions (a contract change means pausing affected streams, updating `.codex/CONTRACTS.md`, rebasing).
 
 ### 5. Merge and integrate — the phase that actually bites
 

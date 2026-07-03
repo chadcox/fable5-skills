@@ -15,7 +15,7 @@ Iron rule: **never run the same failing command twice without a changed hypothes
 
 ### 1. Capture the failure completely
 
-Read the **entire** error output — full stack trace, stderr, exit code — not just the last line. Copy the decisive lines into `STATE.md` (see `working-memory-ledger`) under Gotchas if this looks non-trivial. Half the time, the real error is 30 lines above the one that caught your eye.
+Read the **entire** error output — full stack trace, stderr, exit code — not just the last line. Copy the decisive lines into `.codex/STATE.md` (see `working-memory-ledger`) under Gotchas if this looks non-trivial. Half the time, the real error is 30 lines above the one that caught your eye.
 
 ### 2. Classify
 
@@ -25,13 +25,13 @@ Read the **entire** error output — full stack trace, stderr, exit code — not
 | **Wrong assumption** | API doesn't work how you thought, schema differs, flag doesn't exist | Go read the actual source/docs before editing |
 | **Logic bug** | your code does the wrong thing | Normal debugging |
 | **Flaky/external** | timeout, rate limit, intermittent | Retry ONCE deliberately; if it recurs, treat as real |
-| **Pre-existing** | fails on unmodified main too | Verify with `git stash`; report, don't own it silently |
+| **Pre-existing** | fails on an unmodified baseline too | Check `git status --short` first; verify on a clean worktree or temporary worktree when safe; report, don't own it silently |
 
-The "pre-existing" check matters: before assuming you broke it, confirm it worked before you arrived.
+The "pre-existing" check matters: before assuming you broke it, confirm it worked before you arrived. Do not stash or hide unknown user changes just to run this check; ask or use a separate worktree when ownership is unclear.
 
 ### 3. Hypothesize, then test the hypothesis
 
-State (to yourself, in one sentence, ideally in STATE.md): *"I believe X failed because Y; if I'm right, then Z should be observable."*
+State (to yourself, in one sentence, ideally in `.codex/STATE.md`): *"I believe X failed because Y; if I'm right, then Z should be observable."*
 
 Then **test Z — the cheapest observable prediction — not the full fix.** Examples:
 
@@ -43,7 +43,7 @@ If the observation contradicts the hypothesis, form a new one. Do **not** apply 
 
 ### 4. Fix minimally, verify, record
 
-Apply the smallest change that addresses the *confirmed* cause. Re-run the original failing command. On success, run `self-verification-loop` on the fix, and record the gotcha in STATE.md so it's never re-derived.
+Apply the smallest change that addresses the *confirmed* cause. Re-run the original failing command. On success, run `self-verification-loop` on the fix, and record the gotcha in `.codex/STATE.md` so it's never re-derived.
 
 ### 5. Escalation budget
 

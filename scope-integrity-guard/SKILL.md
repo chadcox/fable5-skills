@@ -18,7 +18,7 @@ The defense is mechanical, not motivational: **re-read the original request, out
 
 ### 1. Pin the scope at task start
 
-In PLAN.md (see `task-decomposition-planner`), the Requirements section is the scope contract. Include implicit-but-obvious requirements, and mark anything ambiguous. If the user adds requirements mid-session via follow-up messages, **append them to the Requirements list immediately** — scope that lives only in chat scrollback is scope that gets dropped.
+In `.codex/PLAN.md` (see `task-decomposition-planner`), the Requirements section is the scope contract. Include implicit-but-obvious requirements, and mark anything ambiguous. If the user adds requirements mid-session via follow-up messages, **append them to the Requirements list immediately** — scope that lives only in chat scrollback is scope that gets dropped.
 
 ### 2. The boundary ritual
 
@@ -33,7 +33,7 @@ At every subtask boundary (and after any long debugging detour), run this 60-sec
 
 When you notice a tempting improvement outside scope (messy code nearby, a deprecated pattern, a missing test for unrelated code):
 
-- **Default: don't do it.** Record it in STATE.md under a `## Noticed (out of scope)` list.
+- **Default: don't do it.** Record it in `.codex/STATE.md` under a `## Noticed (out of scope)` list.
 - **Exception — do it if:** it's required for the in-scope change to work correctly, or it's a genuine safety issue (e.g., you found a credential in the repo, an injection vulnerability in the code path you're editing). Do the minimum, flag it prominently.
 - **At handoff**, present the Noticed list to the user as recommendations. This converts creep into value: the user gets the observations *and* control over what happens next.
 

@@ -7,7 +7,7 @@ description: Classify every incoming task as trivial, standard, or gnarly BEFORE
 
 ## Why this exists
 
-Frontier models expose a reasoning-effort dial; you can approximate one behaviorally. Uncalibrated effort fails in both directions: **over-engineering** (a PLAN.md, MAP.md, and 40 minutes of ceremony for a one-line fix — process fatigue that trains everyone to skip process) and **under-thinking** (diving into a subtle concurrency bug with the same energy as a typo fix, then thrashing). Ten seconds of explicit classification up front sets the right posture for everything downstream — and tells the other skills in this suite when to fire.
+Frontier models expose a reasoning-effort dial; you can approximate one behaviorally. Uncalibrated effort fails in both directions: **over-engineering** (`.codex/PLAN.md`, `.codex/MAP.md`, and 40 minutes of ceremony for a one-line fix — process fatigue that trains everyone to skip process) and **under-thinking** (diving into a subtle concurrency bug with the same energy as a typo fix, then thrashing). Ten seconds of explicit classification up front sets the right posture for everything downstream — and tells the other skills in this suite when to fire.
 
 ## The three tiers
 
@@ -17,13 +17,13 @@ Classify before the first edit. State the tier in one line ("Treating this as st
 
 **Signature:** single file, single obvious change, no ambiguity, blast radius ≈ zero. Typo fixes, a log line, bumping a timeout, an isolated one-liner.
 
-**Posture:** just do it. No PLAN.md, no MAP.md. Still non-negotiable: run/compile the change and re-read the diff (a 30-second `self-verification-loop`). Trivial does not mean unverified.
+**Posture:** just do it. No `.codex/PLAN.md`, no `.codex/MAP.md`. Still non-negotiable: run/compile the change and re-read the diff (a 30-second `self-verification-loop`). Trivial does not mean unverified.
 
 ### Tier 2 — Standard
 
 **Signature:** 1–3 files, clear requirements, known territory, moderate blast radius. Typical bug fixes, small features, adding a test, extending an existing pattern.
 
-**Posture:** lightweight plan (a 5-line checklist is fine — inline, not necessarily a file), targeted verification (relevant tests + diff review), STATE.md only if the task starts sprawling.
+**Posture:** lightweight plan (a 5-line checklist is fine — inline, not necessarily a file), targeted verification (relevant tests + diff review), `.codex/STATE.md` only if the task starts sprawling.
 
 ### Tier 3 — Gnarly
 

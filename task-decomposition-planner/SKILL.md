@@ -1,6 +1,6 @@
 ---
 name: task-decomposition-planner
-description: Produce a written, persisted execution plan before starting any non-trivial coding task. Use this skill whenever a task involves more than one file, more than ~30 minutes of work, any refactor, any migration, any new feature, or any task with multiple stated requirements — even if the user just says "fix X and also Y". Trigger BEFORE writing any code. Skip only for true one-liners.
+description: Produce a written, persisted execution plan before starting gnarly, long-running, ambiguous, or high-blast-radius coding work. Use this skill when effort-calibration classifies a task as gnarly, the work is expected to exceed ~30 minutes, a migration/broad refactor is involved, requirements are ambiguous, or durable state would materially prevent drift. For standard 1-3 file work, prefer an inline checklist unless the task expands. Trigger BEFORE writing code once those conditions are met.
 ---
 
 # Task Decomposition Planner
@@ -15,11 +15,11 @@ The plan is not for the user (though they can read it). It is your own working d
 
 ### 1. Classify first
 
-If the task is truly trivial (single file, single obvious change, no ambiguity), say so in one line and skip to execution. Everything else gets a plan. When in doubt, plan — a plan for a simple task costs 2 minutes; a missing plan on a complex task costs the whole session.
+Use `effort-calibration` first. If the task is trivial, execute directly. If it is standard, use an inline checklist unless it starts sprawling. Create a persisted plan only when the task is gnarly, long-running, ambiguous, high blast-radius, or likely to survive context compaction. When in doubt about those signals, plan — a small plan is cheaper than losing a complex task.
 
-### 2. Write PLAN.md
+### 2. Write .codex/PLAN.md
 
-Create `PLAN.md` at the repo root (or the working directory). Use this structure:
+Create `.codex/PLAN.md` by default so planning artifacts do not pollute the project root. If the repo already has a local convention for agent artifacts, use that instead. Use this structure:
 
 ```markdown
 # Task: <one-line restatement of the user's actual request>
@@ -53,12 +53,12 @@ Rules for good subtasks:
 
 ### 3. Surface ambiguity now
 
-If any requirement can be read two ways and the readings lead to different implementations, ask the user **before** executing. One clarifying question up front beats a rewrite later. If the ambiguity is minor, state your assumption in PLAN.md and proceed.
+If any requirement can be read two ways and the readings lead to different implementations, ask the user **before** executing. One clarifying question up front beats a rewrite later. If the ambiguity is minor, state your assumption in `.codex/PLAN.md` and proceed.
 
 ### 4. Execute against the plan
 
-- Work one subtask at a time. Check it off in PLAN.md only after it is verified (see `self-verification-loop`).
-- **At every subtask boundary, re-read PLAN.md.** This is the anti-drift mechanism. Ask: am I still doing what the plan says? Has anything I learned invalidated a later subtask?
+- Work one subtask at a time. Check it off in `.codex/PLAN.md` only after it is verified (see `self-verification-loop`).
+- **At every subtask boundary, re-read `.codex/PLAN.md`.** This is the anti-drift mechanism. Ask: am I still doing what the plan says? Has anything I learned invalidated a later subtask?
 - If reality diverges from the plan (it will), **update the plan file** — add/remove/reorder subtasks and note why. A stale plan is worse than no plan.
 
 ### 5. Close out against the plan
@@ -71,7 +71,7 @@ User: *"Migrate our alert enrichment from the old ServiceNow SIR webhook to TheH
 
 Bad response: start editing the webhook handler immediately.
 
-Good response: PLAN.md with requirements R1 (TheHive API integration), R2 (Slack notifications preserved — regression requirement, needs its own verification), R3 implicit (old SIR path removed or feature-flagged?  ← ask the user), subtasks covering API client, payload mapping, error handling, Slack regression test, and cleanup.
+Good response: `.codex/PLAN.md` with requirements R1 (TheHive API integration), R2 (Slack notifications preserved — regression requirement, needs its own verification), R3 implicit (old SIR path removed or feature-flagged?  ← ask the user), subtasks covering API client, payload mapping, error handling, Slack regression test, and cleanup.
 
 ## Anti-patterns
 

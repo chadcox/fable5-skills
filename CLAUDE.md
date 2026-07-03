@@ -20,9 +20,9 @@ Treat Skills as reusable operating procedures, not optional suggestions. They sh
 
 Use `effort-calibration` as the router for coding tasks. Do not let multiple applicable Skills automatically imply maximum ceremony.
 
-- Trivial: no persisted `PLAN.md`, `MAP.md`, or `STATE.md`; execute directly and verify.
+- Trivial: no persisted `.codex/PLAN.md`, `.codex/MAP.md`, or `.codex/STATE.md`; execute directly and verify.
 - Standard: use an inline checklist unless the task expands; create persisted artifacts only when they will materially prevent drift.
-- Gnarly: use persisted `PLAN.md`, `MAP.md`, and `STATE.md` as appropriate.
+- Gnarly: use persisted `.codex/PLAN.md`, `.codex/MAP.md`, and `.codex/STATE.md` as appropriate.
 - Recalibrate upward or downward when evidence changes.
 
 ### Skill Routing
@@ -43,7 +43,6 @@ Use only when warranted:
 
 - `long-horizon-checkpointing` for multi-hour or resumed work.
 - `parallel-work-splitter` only for genuinely independent large workstreams.
-- `six-hats-council` only for consequential recommendations or tradeoff decisions, such as architecture, vendor/tool choice, migration strategy, security posture, major cost/time commitments, or decisions the user explicitly asks to deliberate. For ordinary recommendations, answer directly with tradeoffs.
 
 ---
 
@@ -113,7 +112,7 @@ For multi-step work, briefly state the plan:
 2. Step → verification
 3. Step → verification
 
-For persisted planning artifacts, keep them short and current. Do not create `PLAN.md`, `MAP.md`, or `STATE.md` for work that does not need durable state. When they are created, update them as the task changes rather than letting stale plans guide execution.
+For persisted planning artifacts, keep them short and current under `.codex/` by default. Do not create `.codex/PLAN.md`, `.codex/MAP.md`, or `.codex/STATE.md` for work that does not need durable state. When they are created, update them as the task changes rather than letting stale plans guide execution.
 
 Continue working until the success criteria are met or you encounter a genuine blocker.
 

@@ -1,6 +1,6 @@
 ---
 name: working-memory-ledger
-description: Maintain a persistent STATE.md ledger of decisions, invariants, modified files, and gotchas during any long or multi-file coding session. Use this skill on any task expected to span many tool calls, touch 3+ files, run long enough to risk context compaction, or be resumed later — large refactors, migrations, debugging marathons, multi-step infrastructure work. Trigger at task start and update continuously; also trigger when resuming ANY prior session.
+description: Maintain a persistent .codex/STATE.md ledger of decisions, invariants, modified files, and gotchas during any long or multi-file coding session. Use this skill on any task expected to span many tool calls, touch 3+ files, run long enough to risk context compaction, or be resumed later — large refactors, migrations, debugging marathons, multi-step infrastructure work. Trigger at task start and update continuously; also trigger when resuming ANY prior session.
 ---
 
 # Working Memory Ledger
@@ -13,7 +13,7 @@ The ledger is your durable working memory. **If it isn't in the ledger, assume f
 
 ## The ledger file
 
-Create `STATE.md` next to `PLAN.md` at task start. Structure:
+Create `.codex/STATE.md` next to `.codex/PLAN.md` at task start. If the repo already has a local convention for agent artifacts, use that instead. Structure:
 
 ```markdown
 # STATE — <task name>
@@ -38,7 +38,7 @@ Last updated: <timestamp> — <what just happened>
 - G2: PSU on Linux drops env vars in New-PSUSchedule blocks — pass secrets via $Secret: scope.
 
 ## Currently in progress
-- S3: payload field mapping — mapped 14/22 fields, remaining listed in PLAN.md
+- S3: payload field mapping — mapped 14/22 fields, remaining listed in `.codex/PLAN.md`
 
 ## Next actions
 1. Finish field mapping (severity + TLP enums are non-obvious, see G-notes)
@@ -49,7 +49,7 @@ Last updated: <timestamp> — <what just happened>
 
 ### Write eagerly
 
-Update STATE.md **immediately** after any of these, not "later":
+Update `.codex/STATE.md` **immediately** after any of these, not "later":
 
 - A design decision is made (with the *why* — future-you needs the rationale to avoid re-litigating it)
 - A non-obvious constraint or environment quirk is discovered
@@ -61,26 +61,26 @@ The "Last updated" line doubles as a heartbeat — one sentence of what just hap
 
 ### Read religiously
 
-Re-read STATE.md in full:
+Re-read `.codex/STATE.md` in full:
 
 - Whenever resuming after any interruption or context compaction
 - Before starting each new subtask
 - Whenever you're surprised — surprise usually means you forgot a recorded invariant
 - Before final handoff (the Decisions section becomes the skeleton of your summary to the user)
 
-If you notice you're about to investigate something, first check whether STATE.md already has the answer.
+If you notice you're about to investigate something, first check whether `.codex/STATE.md` already has the answer.
 
 ### Keep it a ledger, not a log
 
-Curate. Collapse resolved items, delete obsolete entries, keep it under ~150 lines. A bloated ledger doesn't get read, and an unread ledger is dead weight. History lives in git (see `long-horizon-checkpointing`); STATE.md holds only what's needed to act correctly *right now*.
+Curate. Collapse resolved items, delete obsolete entries, keep it under ~150 lines. A bloated ledger doesn't get read, and an unread ledger is dead weight. History lives in git (see `long-horizon-checkpointing`); `.codex/STATE.md` holds only what's needed to act correctly *right now*.
 
 ## Resuming a session
 
-On any resume: read STATE.md, read PLAN.md, run `git log --oneline -10` and `git status`. Reconcile the three. If they disagree (e.g., a file is modified but not in the ledger), investigate and fix the ledger before writing any new code. Never resume from memory of the previous session — resume from the artifacts.
+On any resume: read `.codex/STATE.md`, read `.codex/PLAN.md`, run `git log --oneline -10` and `git status`. Reconcile the three. If they disagree (e.g., a file is modified but not in the ledger), investigate and fix the ledger before writing any new code. Never resume from memory of the previous session — resume from the artifacts.
 
 ## Anti-patterns
 
 - Recording *what* was decided without *why*. The why is the part that prevents contradiction later.
 - Updating the ledger in one big batch at the end. That's a eulogy, not working memory.
-- Duplicating the plan. PLAN.md owns *what to do*; STATE.md owns *what we know and where we are*.
+- Duplicating the plan. `.codex/PLAN.md` owns *what to do*; `.codex/STATE.md` owns *what we know and where we are*.
 - Trusting your recollection over the ledger. The ledger was written by someone with more context than you currently have.

@@ -23,7 +23,7 @@ Go back to the user's actual request (and the plan file, if one exists from `tas
 
 In order of preference:
 
-1. **Run the tests.** Existing test suite first (scoped to affected modules if the suite is huge, full suite before final handoff). If no tests cover the change, write at least one that exercises the new behavior and one that exercises the failure/edge case.
+1. **Run the tests.** Existing test suite first (scoped to affected modules if the suite is huge, full suite before final handoff). If code behavior changes and a reasonable test harness exists but no tests cover the change, write at least one that exercises the new behavior and one that exercises the failure/edge case. For docs-only, config-only, generated-artifact, or exploratory changes, use the narrowest verification that proves the requested outcome.
 2. **Run the code.** Execute the actual entry point with realistic input. For scripts: run them. For servers: start them and hit the endpoint. For PowerShell: actually invoke the function, don't just define it.
 3. **Static checks.** Linter, type checker, `terraform validate`, `python -m py_compile`, `pwsh -NoProfile -Command "Set-StrictMode -Version Latest; . ./script.ps1"` — whatever the ecosystem offers.
 4. **Read the full diff.** `git diff` end to end. Look for: debug statements left in, half-renamed identifiers, TODO stubs, changes to files you didn't intend to touch.
